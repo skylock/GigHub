@@ -1,13 +1,14 @@
-FROM microsoft/aspnetcore:2.0 AS base
+FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
 WORKDIR /app
-EXPOSE 80
+EXPOSE 55132
+EXPOSE 44303
 
-FROM microsoft/aspnetcore-build:2.0 AS build
+FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
-COPY GigHub/GigHub.csproj GigHub/
-RUN dotnet restore GigHub/GigHub.csproj
+COPY ["GigHub/GigHub.csproj", "GigHub/"]
+RUN dotnet restore "GigHub/GigHub.csproj"
 COPY . .
-WORKDIR /src/GigHub
+WORKDIR "/src/GigHub"
 RUN dotnet build "GigHub.csproj" -c Release -o /app
 
 FROM build AS publish
