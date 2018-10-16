@@ -124,7 +124,7 @@ namespace GigHub.Data.Migrations
                     b.Property<string>("ArtistId")
                         .IsRequired();
 
-                    b.Property<DateTime>("DateTime");
+                    b.Property<DateTime>("GetDateTime");
 
                     b.Property<byte>("GenreId");
 
