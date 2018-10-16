@@ -3,7 +3,6 @@ using GigHub.Models;
 using GigHub.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Linq;
 using System.Security.Claims;
 
@@ -37,7 +36,7 @@ namespace GigHub.Controllers
             var gig = new Gig
             {
                 ArtistId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                DateTime = DateTime.Parse($"{viewModel.Date} {viewModel.Time}"),
+                DateTime = viewModel.DateTime,
                 GenreId = viewModel.Genre,
                 Venue = viewModel.Venue
             };
