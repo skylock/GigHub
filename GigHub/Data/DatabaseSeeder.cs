@@ -25,7 +25,7 @@ namespace GigHub.Data
 
             await SeedUserAndRoles();
 
-            await SeedGenres();
+            //await SeedGenres();
         }
 
         private static async Task SeedGenres()
