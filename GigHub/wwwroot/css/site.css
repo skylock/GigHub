@@ -35,3 +35,44 @@ body {
         display: none;
     }
 }
+
+/* Bootstrap Overrides */
+body {
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    font-size: 17px;
+    padding: 20px 15px;
+    -ms-border-radius: 9px;
+    border-radius: 9px;
+}
+
+.navbar-inverse {
+    background-color: #ff4342;
+    border-color: #ff4342;
+}
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: #fff;
+    }
+
+    .navbar-inverse .navbar-brand {
+        color: #fff;
+    }
+
+    .navbar-inverse .btn-link {
+        color: #fff;
+    }
+
+.btn {
+    font-size: 17px;
+    padding: 7px 20px;
+    -ms-border-radius: 9px;
+    border-radius: 9px;
+}
