@@ -42,6 +42,11 @@ body {
     font-size: 17px;
 }
 
+.dropdown-menu {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
 .form-group {
     margin-bottom: 20px;
 }
@@ -53,10 +58,21 @@ body {
     border-radius: 9px;
 }
 
+    .form-control:focus {
+        border-color: #2196F3;
+        box-shadow: none;
+        -webkit-box-shadow: none;
+    }
+
 .navbar-inverse {
     background-color: #ff4342;
     border-color: #ff4342;
 }
+
+    .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+        color: #fff;
+        background-color: rgba(205, 40, 39, 0.55);
+    }
 
     .navbar-inverse .navbar-nav > li > a {
         color: #fff;
@@ -66,6 +82,9 @@ body {
         color: #fff;
     }
 
+    .navbar-brand {
+        font-weight: 700;
+    }
     .navbar-inverse .btn-link {
         color: #fff;
     }
