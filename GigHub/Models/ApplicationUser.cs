@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace GigHub.Models
 {
@@ -13,5 +14,7 @@ namespace GigHub.Models
         public string LastName { get; set; }
 
         public string FullName => $"{FirstName} {LastName}";
+
+        public ICollection<Attendance> Attendances { get; set; }
     }
 }
