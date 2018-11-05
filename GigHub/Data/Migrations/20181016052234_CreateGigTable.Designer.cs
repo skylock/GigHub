@@ -123,7 +123,7 @@ namespace GigHub.Data.Migrations
 
                     b.Property<string>("ArtistId");
 
-                    b.Property<DateTime>("GetDateTime");
+                    b.Property<DateTime>("DateTime");
 
                     b.Property<byte?>("GenreId");
 
