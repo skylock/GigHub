@@ -23,7 +23,7 @@ namespace GigHub.Controllers
         }
 
         [HttpPost]
-        public IActionResult Attend(AttendaceDto dto)
+        public IActionResult Attend(AttendanceDto dto)
         {
             var currentUserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 

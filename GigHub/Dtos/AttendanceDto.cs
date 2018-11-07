@@ -1,6 +1,6 @@
 ﻿namespace GigHub.Dtos
 {
-    public class AttendaceDto
+    public class AttendanceDto
     {
         public int GigId { get; set; }
     }
