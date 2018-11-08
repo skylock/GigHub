@@ -12,6 +12,8 @@ namespace GigHub.Data
 
         public DbSet<Attendance> Attendances { get; set; }
 
+        public DbSet<Following> Followings { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -19,10 +21,8 @@ namespace GigHub.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
             modelBuilder.Entity<Attendance>()
-                .HasKey(a => new {a.GigId, a.AttendeeId});
+                .HasKey(a => new { a.GigId, a.AttendeeId });
 
             modelBuilder.Entity<Attendance>()
                 .HasOne(g => g.Gig)
@@ -34,6 +34,22 @@ namespace GigHub.Data
                 .HasOne(a => a.Attendee)
                 .WithMany(a => a.Attendances)
                 .HasForeignKey(at => at.AttendeeId);
+
+
+            modelBuilder.Entity<Following>()
+                .HasKey(a => new { a.FollowerId, a.FolloweeId });
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.Followers)
+                .WithOne(f => f.Followee)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.Followees)
+                .WithOne(f => f.Follower)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
