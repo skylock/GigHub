@@ -1,37 +1,39 @@
-﻿@using Microsoft.AspNetCore.Identity
-@model IEnumerable<GigHub.Models.Gig>
-@inject UserManager<ApplicationUser> UserManager
+﻿@model GigHub.ViewModels.HomeViewModel
 @{
     ViewData["Title"] = "Home Page";
 }
 
-@if (User.Identity.IsAuthenticated)
-{
-    <ul class="gigs">
-        @foreach (var gig in Model)
-        {
-            <li>
-                <div class="date">
-                    <div class="month">
-                        @gig.DateTime.ToString("MMM")
-                    </div>
-                    <div class="day">
-                        @gig.DateTime.ToString("d ")
-                    </div>
+<ul class="gigs">
+    @foreach (var gig in Model.UpcomingGigs)
+    {
+        <li>
+            <div class="date">
+                <div class="month">
+                    @gig.DateTime.ToString("MMM")
                 </div>
-                <div class="details">
-                    <span class="artist">
-                        @gig.Artist.FullName <button data-user-id="@gig.ArtistId" class="btn btn-link btn-sm pull-right js-toggle-follow">Follow</button>
-                    </span>
-                    <span class="genre">
-                        @gig.Genre.Name
-                    </span>
+                <div class="day">
+                    @gig.DateTime.ToString("d ")
+                </div>
+            </div>
+            <div class="details">
+                <span class="artist">
+                    @gig.Artist.FullName
+                    @if (Model.ShowActions)
+                    {
+                        <button data-user-id="@gig.ArtistId" class="btn btn-link btn-sm pull-right js-toggle-follow">Follow</button>
+                    }
+                </span>
+                <span class="genre">
+                    @gig.Genre.Name
+                </span>
+                @if (Model.ShowActions)
+                {
                     <button data-gig-id="@gig.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going ?</button>
-                </div>
-            </li>
-        }
-    </ul>
-}
+                }
+            </div>
+        </li>
+    }
+</ul>
 @section Scripts
     {
     <script>
