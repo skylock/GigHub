@@ -36,6 +36,13 @@ body {
     }
 }
 
+.voffset2 { margin-top: 2px; }
+.voffset5 { margin-top: 5px; }
+.voffset10 { margin-top: 10px; }
+.voffset20 { margin-top: 20px; }
+.voffset40 { margin-top: 40px; }
+.voffset80 { margin-top: 80px; }
+
 /* Bootstrap Overrides */
 body {
     font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;

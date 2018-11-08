@@ -3,7 +3,9 @@
     ViewData["Title"] = "Home Page";
 }
 
-<ul class="gigs">
+<h1>@Model.Heading</h1>
+
+<ul class="gigs voffset20">
     @foreach (var gig in Model.UpcomingGigs)
     {
         <li>
