@@ -45,8 +45,8 @@
                             .addClass("btn-info")
                             .text("Going");
                     })
-                    .fail(function () {
-                        alert("Something failed");
+                    .fail(function (jqXhr) {
+                        alert(jqXhr.responseJSON);
                     });
             });
         });
@@ -58,8 +58,8 @@
                     .done(function () {
                         $(button).text("Following");
                     })
-                    .fail(function () {
-                        alert("Something failed");
+                    .fail(function (jqXhr) {
+                        alert(jqXhr.responseJSON);
                     });
             });
         });
