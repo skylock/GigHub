@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
 
-namespace GigHub.api
+namespace GigHub.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -16,7 +16,7 @@ namespace GigHub.api
             _context = context;
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Cancel(int id)
         {
             var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
