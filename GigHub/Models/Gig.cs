@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -8,6 +7,8 @@ namespace GigHub.Models
     public class Gig
     {
         public int Id { get; set; }
+
+        public bool IsCanceled { get; set; }
 
         [Required]
         public string ArtistId { get; set; }
