@@ -2,7 +2,7 @@
 
 namespace GigHub.Data.Migrations
 {
-    public partial class ADDFollowing : Migration
+    public partial class AddFollowing : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

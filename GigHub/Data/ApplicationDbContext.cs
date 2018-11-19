@@ -39,14 +39,16 @@ namespace GigHub.Data
             modelBuilder.Entity<Following>()
                 .HasKey(a => new { a.FollowerId, a.FolloweeId });
 
-            modelBuilder.Entity<ApplicationUser>()
-                .HasMany(u => u.Followers)
-                .WithOne(f => f.Followee)
+            modelBuilder.Entity<Following>()
+                .HasOne(f => f.Follower)
+                .WithMany(u => u.Followees)
+                .HasForeignKey(f => f.FollowerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<ApplicationUser>()
-                .HasMany(u => u.Followees)
-                .WithOne(f => f.Follower)
+            modelBuilder.Entity<Following>()
+                .HasOne(f => f.Followee)
+                .WithMany(u => u.Followers)
+                .HasForeignKey(f => f.FolloweeId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(modelBuilder);

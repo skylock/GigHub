@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GigHub.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181108053639_ADDFollowing")]
-    partial class ADDFollowing
+    [Migration("20181119123357_AddFollowing")]
+    partial class AddFollowing
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -123,13 +123,13 @@ namespace GigHub.Data.Migrations
 
             modelBuilder.Entity("GigHub.Models.Following", b =>
                 {
-                    b.Property<string>("FolloweeId");
+                    b.Property<string>("FollowerId");
 
                     b.Property<string>("FolloweeId");
 
-                    b.HasKey("FolloweeId", "FolloweeId");
+                    b.HasKey("FollowerId", "FolloweeId");
 
-                    b.HasAlternateKey("FolloweeId", "FolloweeId");
+                    b.HasAlternateKey("FolloweeId", "FollowerId");
 
                     b.ToTable("Followings");
                 });
@@ -285,7 +285,7 @@ namespace GigHub.Data.Migrations
 
                     b.HasOne("GigHub.Models.ApplicationUser", "Follower")
                         .WithMany("Followees")
-                        .HasForeignKey("FolloweeId")
+                        .HasForeignKey("FollowerId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
