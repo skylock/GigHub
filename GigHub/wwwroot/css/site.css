@@ -81,6 +81,10 @@ body {
         background-color: rgba(205, 40, 39, 0.55);
     }
 
+    @media (max-width: 767px) {
+        .navbar-inverse .navbar-nav .open .dropdown-menu > li > a { color: #fff; }
+    }
+
     .navbar-inverse .navbar-nav > li > a {
         color: #fff;
     }
