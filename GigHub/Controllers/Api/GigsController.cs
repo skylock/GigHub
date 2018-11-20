@@ -22,6 +22,9 @@ namespace GigHub.Controllers.Api
             var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var gig = _context.Gigs.Single(g => g.Id == id && g.ArtistId == userId);
 
+            if (gig.IsCanceled)
+                return NotFound();
+
             gig.IsCanceled = true;
 
             _context.SaveChanges();
