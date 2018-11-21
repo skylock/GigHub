@@ -14,6 +14,10 @@ namespace GigHub.Data
 
         public DbSet<Following> Followings { get; set; }
 
+        public DbSet<Notification> Notifications { get; set; }
+
+        public DbSet<UserNotification> UserNotifications { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -50,6 +54,23 @@ namespace GigHub.Data
                 .WithMany(u => u.Followers)
                 .HasForeignKey(f => f.FolloweeId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+
+            modelBuilder.Entity<UserNotification>()
+                .HasKey(n => new { n.NotificationId, n.UserId });
+
+            modelBuilder.Entity<UserNotification>()
+                .HasOne(f => f.Notification)
+                .WithMany(u => u.UserNotifications)
+                .HasForeignKey(f => f.NotificationId);
+                
+
+            modelBuilder.Entity<UserNotification>()
+                .HasOne(f => f.User)
+                .WithMany(u => u.UserNotifications)
+                .HasForeignKey(f => f.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
 
             base.OnModelCreating(modelBuilder);
         }
