@@ -30,7 +30,7 @@ namespace GigHub.Data
 
             modelBuilder.Entity<Attendance>()
                 .HasOne(g => g.Gig)
-                .WithMany(a => a.Attendees)
+                .WithMany(a => a.Attendances)
                 .HasForeignKey(at => at.GigId)
                 .OnDelete(DeleteBehavior.Restrict);
 
@@ -63,7 +63,7 @@ namespace GigHub.Data
                 .HasOne(f => f.Notification)
                 .WithMany(u => u.UserNotifications)
                 .HasForeignKey(f => f.NotificationId);
-                
+
 
             modelBuilder.Entity<UserNotification>()
                 .HasOne(f => f.User)
