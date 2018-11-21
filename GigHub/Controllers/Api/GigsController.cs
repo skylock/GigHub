@@ -1,5 +1,4 @@
 ﻿using GigHub.Data;
-using GigHub.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -31,14 +30,7 @@ namespace GigHub.Controllers.Api
             if (gig.IsCanceled)
                 return NotFound();
 
-            gig.IsCanceled = true;
-
-            var notification = new Notification(NotificationType.GigCanceled, gig);
-
-            foreach (var atendee in gig.Attendances.Select(a => a.Attendee))
-            {
-                atendee.Notify(notification);
-            }
+            gig.Cancel();
 
             _context.SaveChanges();
 
