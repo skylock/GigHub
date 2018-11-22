@@ -19,7 +19,7 @@ namespace GigHub.Controllers.Api
             _context = context;
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Cancel(int id)
         {
             var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
