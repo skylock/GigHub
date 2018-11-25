@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using GigHub.Data;
+using GigHub.Dtos;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;

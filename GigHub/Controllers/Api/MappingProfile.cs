@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GigHub.Dtos;
 using GigHub.Models;
 
 namespace GigHub.Controllers.Api
