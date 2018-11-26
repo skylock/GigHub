@@ -4,16 +4,16 @@
             .text(notifications.length)
             .removeClass("hide")
             .addClass("animated bounceInDown");
-    });
 
-    $(".notifications").popover({
-        html: true,
-        title: "Notifications",
-        content: function () {
-            const compiled = _.template("Hello <%= name %>");
-            const html = compiled({ name: "Mosh" });
-            return html;
-        },
-        placement: "bottom"
+        $(".notifications").popover({
+            html: true,
+            title: "Notifications",
+            content: function () {
+                const template = $("#notification-template").html();
+                const compiled = _.template(template);
+                return compiled({ notifications: notifications });
+            },
+            placement: "bottom"
+        });
     });
 });

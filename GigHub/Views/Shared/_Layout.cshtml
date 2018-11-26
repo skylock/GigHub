@@ -77,5 +77,14 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
+    <script type="text/x-template" id="notification-template">
+        <%
+        _.each(notifications, function(notification){
+            if (notification.type == 1)  { %>
+                <li><%= notification.gig.artist.fullName%> has canceled the <%= notification.gig.venue%> at venu at <%= notification.gig.dateTime%>.</li>
+                <% }
+            });
+        %>
+    </script>
 </body>
 </html>
