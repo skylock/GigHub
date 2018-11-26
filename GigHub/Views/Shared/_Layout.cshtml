@@ -77,15 +77,33 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
-    <script type="text/x-template" id="notification-template">
+<script type="text/x-template" id="notification-template">
         <%
         _.each(notifications, function(notification){
             if (notification.type == 1)  { %>
                 <li><%= notification.gig.artist.fullName%> has canceled the <%= notification.gig.venue%> at venu at <%= notification.gig.dateTime%>.</li>
             <% }
-            if (notification.type == 2)  { %>
-                <li><%= notification.gig.artist.fullName%> has updated the <%= notification.gig.venue%> at <%= notification.gig.dateTime%>.</li>
-            <% }
+            else if (notification.type == 2)  { 
+                let changes = [],
+                    originalValues = [],
+                    newValues = [];
+
+                if (notification.originalVenue != notification.gig.venue) {
+                    changes.push('venue');
+                    originalValues.push(notification.originalVenue);
+                    newValues.push(notification.gig.venue);
+                }
+    
+                if (notification.originalDateTime != notification.gig.dateTime) {
+                    changes.push('date/time');
+                    originalValues.push(notification.originalDateTime);
+                    newValues.push(notification.gig.dateTime);
+                }
+
+               %>
+                <li><%= notification.gig.artist.fullName %> has changed the <%= changes.join(' and ') %> of the gig from <%= originalValues.join('/') %> to <%= newValues.join('/') %></li>
+            <% 
+             }
         });
         %>
     </script>
