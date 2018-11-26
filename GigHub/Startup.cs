@@ -1,4 +1,5 @@
-﻿using GigHub.Data;
+﻿using AutoMapper;
+using GigHub.Data;
 using GigHub.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -43,6 +44,7 @@ namespace GigHub
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
+            services.AddAutoMapper();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

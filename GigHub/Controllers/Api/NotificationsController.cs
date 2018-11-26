@@ -1,4 +1,5 @@
-﻿using GigHub.Data;
+﻿using AutoMapper;
+using GigHub.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,13 @@ namespace GigHub.Controllers.Api
     public class NotificationsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public NotificationsController(ApplicationDbContext context)
+        public NotificationsController(ApplicationDbContext context,
+                                       IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
         public IEnumerable<NotificationDto> GetNewNotifications()
         {
@@ -29,25 +33,7 @@ namespace GigHub.Controllers.Api
                 .Include(n => n.Gig.Artist)
                 .ToList();
 
-            return notifications.Select(n => new NotificationDto
-            {
-                DateTime = n.DateTime,
-                Gig = new GigDto
-                {
-                    Artist = new UserDto
-                    {
-                        Id = n.Gig.Artist.Id,
-                        Name = n.Gig.Artist.FullName
-                    },
-                    DateTime = n.Gig.DateTime,
-                    Id = n.Gig.Id,
-                    IsCanceled = n.Gig.IsCanceled,
-                    Venue = n.Gig.Venue
-                },
-                OriginalDateTime = n.OriginalDateTime,
-                OriginalVenue = n.OriginalVenue,
-                Type = n.Type
-            });
+            return notifications.Select(n => _mapper.Map<NotificationDto>(n));
         }
     }
 }
