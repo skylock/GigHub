@@ -3,9 +3,9 @@ using GigHub.Models;
 
 namespace GigHub.Controllers.Api
 {
-    public class SimpleMappings : Profile
+    public class MappingProfile : Profile
     {
-        public SimpleMappings()
+        public MappingProfile()
         {
             CreateMap<ApplicationUser, UserDto>();
             CreateMap<Gig, GigDto>();
