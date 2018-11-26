@@ -1,5 +1,8 @@
 ﻿$(document).ready(function () {
     $.getJSON("/api/notifications", function (notifications) {
+        if (notifications.length == 0)
+            return; 
+
         $(".js-notifications-count")
             .text(notifications.length)
             .removeClass("hide")
