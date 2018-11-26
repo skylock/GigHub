@@ -10,8 +10,10 @@
         html: true,
         title: "Notifications",
         content: function () {
-            return "Hello world !";
+            const compiled = _.template("Hello <%= name %>");
+            const html = compiled({ name: "Mosh" });
+            return html;
         },
-        placement: bottom
+        placement: "bottom"
     });
 });
