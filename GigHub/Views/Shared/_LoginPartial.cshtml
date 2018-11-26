@@ -7,9 +7,10 @@
 {
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
-            <li>
+            <li class="notifications">
                 <a href="#">
                     <i class="glyphicon glyphicon-globe"></i>
+                    <span class="badge">2</span>
                 </a>
             </li>
             <li class="dropdown">
