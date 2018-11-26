@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     $.getJSON("/api/notifications", function (notifications) {
-        if (notifications.length == 0)
+        if (notifications.length === 0)
             return; 
 
         $(".js-notifications-count")
