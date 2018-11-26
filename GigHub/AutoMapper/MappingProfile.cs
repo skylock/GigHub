@@ -2,7 +2,7 @@
 using GigHub.Dtos;
 using GigHub.Models;
 
-namespace GigHub.Controllers.Api
+namespace GigHub.AutoMapper
 {
     public class MappingProfile : Profile
     {
