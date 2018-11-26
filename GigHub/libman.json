@@ -5,6 +5,11 @@
     {
       "library": "bootbox.js@4.4.0",
       "destination": "wwwroot/lib/bootbox.js/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "animate.css@3.7.0",
+      "destination": "wwwroot/lib/animate.css/"
     }
   ]
 }

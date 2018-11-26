@@ -2,6 +2,7 @@
     $.getJSON("/api/notifications", function (notifications) {
         $(".js-notifications-count")
             .text(notifications.length)
-            .removeClass("hide");
+            .removeClass("hide")
+            .addClass("animated bounceInDown");
     });
 });
