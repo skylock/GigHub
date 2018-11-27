@@ -175,3 +175,19 @@ body {
     .gigs > li:hover .actions {
         display: block; 
     }
+.popover-notifications .popover-content {
+    padding: 0;
+}
+
+.popover-notifications .popover-content ul.notifications {
+    list-style: none;
+    padding-left: 0;
+}
+.popover-notifications .popover-content ul.notifications > li {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+
+.popover-notifications .popover-content ul.notifications > li:last-child {
+    border-bottom: none;
+}

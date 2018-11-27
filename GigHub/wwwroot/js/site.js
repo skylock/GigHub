@@ -16,7 +16,8 @@
                 const compiled = _.template(template);
                 return compiled({ notifications: notifications });
             },
-            placement: "bottom"
+            placement: "bottom",
+            template: '<div class="popover popover-notifications" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
         });
     });
 });
