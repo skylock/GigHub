@@ -191,3 +191,8 @@ body {
 .popover-notifications .popover-content ul.notifications > li:last-child {
     border-bottom: none;
 }
+
+    .popover-notifications ul.notifications .highlight {
+        font-weight: bold;
+    }
+
