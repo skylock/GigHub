@@ -7,7 +7,8 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
 
     <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css" />
+        @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />*@
         <link rel="stylesheet" href="~/lib/animate.css/animate.css" />
         <link rel="stylesheet" href="~/css/site.css" />
 
@@ -17,7 +18,7 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/lib/animate.css/animate.min.css"/>
+        <link rel="stylesheet" href="~/lib/animate.css/animate.min.css" />
     </environment>
 </head>
 <body>
@@ -77,37 +78,37 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
-<script type="text/x-template" id="notification-template">
-    <ul class="notifications">
-        <%
-        _.each(notifications, function(notification){
-            if (notification.type == 1)  { %>
-                <li><%= notification.gig.artist.fullName%> has canceled the <%= notification.gig.venue%> at venu at <%= notification.gig.dateTime%>.</li>
-            <% }
-            else if (notification.type == 2)  { 
-                let changes = [],
+    <script type="text/x-template" id="notification-template">
+        <ul class="notifications">
+            <%
+            _.each(notifications, function(notification){
+                if (notification.type == 1)  { %>
+                    <li><%= notification.gig.artist.fullName%> has canceled the <%= notification.gig.venue%> at venu at <%= notification.gig.dateTime%>.</li>
+                <% }
+                else if (notification.type == 2)  {
+                    let changes = [],
                     originalValues = [],
                     newValues = [];
 
-                if (notification.originalVenue != notification.gig.venue) {
-                    changes.push('venue');
-                    originalValues.push(notification.originalVenue);
-                    newValues.push(notification.gig.venue);
-                }
-    
-                if (notification.originalDateTime != notification.gig.dateTime) {
-                    changes.push('date/time');
-                    originalValues.push(notification.originalDateTime);
-                    newValues.push(notification.gig.dateTime);
-                }
+                    if (notification.originalVenue != notification.gig.venue) {
+                        changes.push('venue');
+                        originalValues.push(notification.originalVenue);
+                        newValues.push(notification.gig.venue);
+                    }
 
-               %>
-                <li><%= notification.gig.artist.fullName %> has changed the <%= changes.join(' and ') %> of the gig from <%= originalValues.join('/') %> to <%= newValues.join('/') %></li>
-            <% 
-             }
-        });
-        %>
-    </ul>
+                    if (notification.originalDateTime != notification.gig.dateTime) {
+                        changes.push('date/time');
+                        originalValues.push(notification.originalDateTime);
+                        newValues.push(notification.gig.dateTime);
+                    }
+
+                    %>
+                    <li><%= notification.gig.artist.fullName %> has changed the <%= changes.join(' and ') %> of the gig from <%= originalValues.join('/') %> to <%= newValues.join('/') %></li>
+                    <%
+                    }
+            });
+           %>
+        </ul>
     </script>
 </body>
 </html>
