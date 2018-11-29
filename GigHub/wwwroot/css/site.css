@@ -49,6 +49,11 @@ body {
     font-size: 17px;
 }
 
+.popover {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
 .dropdown-menu {
     box-shadow: none;
     -webkit-box-shadow: none;
