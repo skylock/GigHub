@@ -57,6 +57,7 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/lib/bootbox.js/bootbox.js"></script>
         <script src="~/lib/underscore.js/underscore.js"></script>
+        <script src="~/lib/moment.js/moment.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
@@ -74,6 +75,7 @@
         </script>
         <script src="~/lib/bootbox.js/bootbox.min.js"></script>
         <script src="~/lib/underscore.js/underscore-min.js"></script>
+        <script src="~/lib/moment.js/moment.min.js"></script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 
@@ -83,7 +85,7 @@
             <%
             _.each(notifications, function(notification){
                 if (notification.type == 1)  { %>
-                    <li><span class="highlight"><%= notification.gig.artist.fullName%></span> has canceled the <%= notification.gig.venue%> at venu at <%= notification.gig.dateTime%>.</li>
+                    <li><span class="highlight"><%= notification.gig.artist.fullName%></span> has canceled the <%= notification.gig.venue%> at venu at <%= moment(notification.gig.dateTime).format("D MMM HH:mm")%>.</li>
                 <% }
                 else if (notification.type == 2)  {
                     let changes = [],
@@ -98,8 +100,8 @@
 
                     if (notification.originalDateTime != notification.gig.dateTime) {
                         changes.push('date/time');
-                        originalValues.push(notification.originalDateTime);
-                        newValues.push(notification.gig.dateTime);
+                        originalValues.push(moment(notification.originalDateTime).format("D MMM HH:mm"));
+                        newValues.push(moment(notification.gig.dateTime).format("D MMM HH:mm"));
                     }
 
                     %>
