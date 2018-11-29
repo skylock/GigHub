@@ -18,6 +18,8 @@
             },
             placement: "bottom",
             template: '<div class="popover popover-notifications" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
+        }).on("show.bs.popover", function() {
+            console.log("Popover displayed !");
         });
     });
 });
