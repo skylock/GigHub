@@ -24,6 +24,7 @@ namespace GigHub.Controllers.Api
             _context = context;
             _mapper = mapper;
         }
+        [HttpGet]
         public IEnumerable<NotificationDto> GetNewNotifications()
         {
             var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
