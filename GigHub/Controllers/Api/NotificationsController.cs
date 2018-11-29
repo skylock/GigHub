@@ -35,5 +35,20 @@ namespace GigHub.Controllers.Api
 
             return notifications.Select(n => _mapper.Map<NotificationDto>(n));
         }
+
+        [HttpPost]
+        public IActionResult MarkAsRead()
+        {
+            var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var notifications = _context.UserNotifications
+                .Where(un => un.UserId == userId && !un.IsRead)
+                .ToList();
+
+            notifications.ForEach(n => n.Read()); 
+
+            _context.SaveChanges();
+
+            return Ok();
+        }
     }
 }
