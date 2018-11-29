@@ -10,7 +10,7 @@ using System.Security.Claims;
 
 namespace GigHub.Controllers.Api
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     [Authorize]
     public class NotificationsController : ControllerBase
