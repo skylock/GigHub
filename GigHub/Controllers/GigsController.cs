@@ -71,6 +71,14 @@ namespace GigHub.Controllers
         }
 
         [Authorize]
+        [HttpPost]
+        public IActionResult Search(GigsViewModel viewModel)
+        {
+            return RedirectToAction("Index", "Home", new { query = viewModel.SearchTerm });
+        }
+
+
+        [Authorize]
         public IActionResult Edit(int id)
         {
             var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
