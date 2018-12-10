@@ -6,6 +6,7 @@ using GigHub.Dtos;
 using GigHub.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GigHub.Controllers.Api
 {
@@ -46,6 +47,25 @@ namespace GigHub.Controllers.Api
         public IEnumerable<Gig> GetGigs()
         {
             return _context.Gigs;
+        }
+
+        [Authorize]
+        [HttpDelete("{id}")]
+        public IActionResult Cancel(int id)
+        {
+            var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var attendance = _context.Attendances
+                .SingleOrDefault(a => a.GigId == id && a.AttendeeId == userId);
+
+            if (attendance == null)
+                return NotFound();
+
+            _context.Attendances.Remove(attendance);
+
+            _context.SaveChanges();
+
+            return Ok(id);
         }
     }
 }
