@@ -4,7 +4,16 @@
 }
 
 <h1>@Model.Heading</h1>
-
+<form asp-controller="Gigs" asp-action="Search">
+    <div class="form-group">
+        <div id="searchGigs" class="input-group">
+            @Html.TextBoxFor(m => m.SearchTerm, new { placeholder = "Search by artist, genre...", @class = "form-control"})
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+        </div>
+    </div>
+</form>
 <ul class="gigs voffset40">
     @foreach (var gig in Model.UpcomingGigs)
     {
