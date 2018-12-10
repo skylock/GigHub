@@ -7,7 +7,7 @@
 <form asp-controller="Gigs" asp-action="Search">
     <div class="form-group">
         <div id="searchGigs" class="input-group">
-            @Html.TextBoxFor(m => m.SearchTerm, new { placeholder = "Search by artist, genre...", @class = "form-control"})
+            @Html.TextBoxFor(m => m.SearchTerm, new { placeholder = "Search by artist, Genre or Location...", @class = "form-control"})
             <span class="input-group-addon">
                 <i class="glyphicon glyphicon-search"></i>
             </span>
@@ -28,7 +28,7 @@
             </div>
             <div class="details">
                 <span class="artist">
-                    @gig.Artist.FullName
+                    <a asp-controller="Gigs" asp-action="Details" asp-route-Id="@gig.Id">@gig.Artist.FullName</a>
 
                     @if (gig.IsCanceled)
                     {
