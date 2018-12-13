@@ -30,37 +30,38 @@
 });
 
 var GigsController = function() {
-    var init = function() {
-        $(".js-toggle-attendance").click(function (e) {
-            var button = $(e.target);
-            if (button.hasClass("btn-default")) {
-                $.post("/api/attendances", { gigId: $(button).attr("data-gig-id") })
-                    .done(function () {
-                        $(button)
-                            .removeClass("btn-default")
-                            .addClass("btn-info")
-                            .text("Going");
-                    })
-                    .fail(function (jqXhr) {
-                        alert(jqXhr.responseJSON);
-                    });
-            } else {
-                $.ajax({
-                        url: "/api/attendances/" + button.attr("data-gig-id"),
-                        method: "DELETE"
-                    })
-                    .done(function () {
-                        button
-                            .removeClass("btn-info")
-                            .addClass("btn-default")
-                            .text("Going?");
-                    })
-                    .fail(function () {
-                        alert(jqXhr.responseJSON);
-                    });
-            }
+    var showErrorMessage = function (jqXhr) {
+        alert(jqXhr.responseJSON);
+    };
 
-        });
+    var toggleAttendance = function (e) {
+        var button = $(e.target);
+        if (button.hasClass("btn-default")) {
+            $.post("/api/attendances", { gigId: $(button).attr("data-gig-id") })
+                .done(function () {
+                    $(button)
+                        .removeClass("btn-default")
+                        .addClass("btn-info")
+                        .text("Going");
+                })
+                .fail(showErrorMessage);
+        } else {
+            $.ajax({
+                    url: "/api/attendances/" + button.attr("data-gig-id"),
+                    method: "DELETE"
+                })
+                .done(function () {
+                    button
+                        .removeClass("btn-info")
+                        .addClass("btn-default")
+                        .text("Going?");
+                })
+                .fail(showErrorMessage);
+        }
+    };
+
+    var init = function () {
+        $(".js-toggle-attendance").click(toggleAttendance);
     };
 
     return {
