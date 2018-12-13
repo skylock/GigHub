@@ -57,7 +57,7 @@
         <script src="~/lib/bootbox.js/bootbox.js"></script>
         <script src="~/lib/underscore.js/underscore.js"></script>
         <script src="~/lib/moment.js/moment.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/app.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
@@ -75,41 +75,41 @@
         <script src="~/lib/bootbox.js/bootbox.min.js"></script>
         <script src="~/lib/underscore.js/underscore-min.js"></script>
         <script src="~/lib/moment.js/moment.min.js"></script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/js/app.min.js" asp-append-version="true"></script>
     </environment>
-
+    
     @RenderSection("Scripts", required: false)
-    <script type="text/x-template" id="notification-template">
-        <ul class="notifications">
-            <%
-            _.each(notifications, function(notification){
-                if (notification.type == 1)  { %>
-                    <li><span class="highlight"><%= notification.gig.artist.fullName%></span> has canceled the <%= notification.gig.venue%> at venu at <%= moment(notification.gig.dateTime).format("D MMM HH:mm")%>.</li>
-                <% }
-                else if (notification.type == 2)  {
-                    let changes = [],
-                    originalValues = [],
-                    newValues = [];
+        <script type="text/x-template" id="notification-template">
+            <ul class="notifications">
+                <%
+                _.each(notifications, function(notification){
+                    if (notification.type == 1)  { %>
+                        <li><span class="highlight"><%= notification.gig.artist.fullName%></span> has canceled the <%= notification.gig.venue%> at venu at <%= moment(notification.gig.dateTime).format("D MMM HH:mm")%>.</li>
+                    <% }
+                    else if (notification.type == 2)  {
+                        let changes = [],
+                        originalValues = [],
+                        newValues = [];
 
-                    if (notification.originalVenue != notification.gig.venue) {
-                        changes.push('venue');
-                        originalValues.push(notification.originalVenue);
-                        newValues.push(notification.gig.venue);
-                    }
+                        if (notification.originalVenue != notification.gig.venue) {
+                            changes.push('venue');
+                            originalValues.push(notification.originalVenue);
+                            newValues.push(notification.gig.venue);
+                        }
 
-                    if (notification.originalDateTime != notification.gig.dateTime) {
-                        changes.push('date/time');
-                        originalValues.push(moment(notification.originalDateTime).format("D MMM HH:mm"));
-                        newValues.push(moment(notification.gig.dateTime).format("D MMM HH:mm"));
-                    }
+                        if (notification.originalDateTime != notification.gig.dateTime) {
+                            changes.push('date/time');
+                            originalValues.push(moment(notification.originalDateTime).format("D MMM HH:mm"));
+                            newValues.push(moment(notification.gig.dateTime).format("D MMM HH:mm"));
+                        }
 
-                    %>
-                    <li><span class="highlight"><%= notification.gig.artist.fullName %></span> has changed the <%= changes.join(' and ') %> of the gig from <%= originalValues.join('/') %> to <%= newValues.join('/') %></li>
-                    <%
-                    }
-            });
-           %>
-        </ul>
-    </script>
+                        %>
+                        <li><span class="highlight"><%= notification.gig.artist.fullName %></span> has changed the <%= changes.join(' and ') %> of the gig from <%= originalValues.join('/') %> to <%= newValues.join('/') %></li>
+                        <%
+                        }
+                });
+               %>
+            </ul>
+        </script>
 </body>
 </html>

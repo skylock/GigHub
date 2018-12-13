@@ -1,0 +1,10 @@
+[
+  {
+    "outputFileName": "wwwroot/js/app.js",
+    "inputFiles": [
+      "wwwroot/js/services/attendanceService.js",
+      "wwwroot/js/controllers/gigsController.js",
+      "wwwroot/js/controllers/notificationsController.js"
+    ]
+  }
+]
