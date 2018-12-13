@@ -46,20 +46,28 @@ var GigsController = function() {
 
     };
 
+    var createAttendance = function() {
+        $.post("/api/attendances", { gigId: $(button).attr("data-gig-id") })
+            .done(done)
+            .fail(message);
+
+    };
+
+    var deleteAttendance = function() {
+        $.ajax({
+                url: "/api/attendances/" + button.attr("data-gig-id"),
+                method: "DELETE"
+            })
+            .done(done)
+            .fail(message);
+    };
+
     var toggleAttendance = function (e) {
         button = $(e.target);
-        if (button.hasClass("btn-default")) {
-            $.post("/api/attendances", { gigId: $(button).attr("data-gig-id") })
-                .done(done)
-                .fail(message);
-        } else {
-            $.ajax({
-                    url: "/api/attendances/" + button.attr("data-gig-id"),
-                    method: "DELETE"
-                })
-                .done(done)
-                .fail(message);
-        }
+        if (button.hasClass("btn-default")) 
+            createAttendance();
+        else 
+            deleteAttendance();
     };
 
     var init = function () {
