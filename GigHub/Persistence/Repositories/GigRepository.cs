@@ -1,11 +1,11 @@
-﻿using GigHub.Data;
-using GigHub.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GigHub.Data;
+using GigHub.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace GigHub.Repositories
+namespace GigHub.Persistence.Repositories
 {
     public class GigRepository
     {
@@ -56,11 +56,6 @@ namespace GigHub.Repositories
                 .Include(g => g.Artist)
                 .Include(g => g.Genre)
                 .ToList();
-        }
-
-        public void Commit()
-        {
-            _context.SaveChanges();
         }
     }
 }
