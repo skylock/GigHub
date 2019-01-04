@@ -20,6 +20,28 @@ var AttendanceService = function () {
         deleteAttendance: deleteAttendance
     };
 }();
+var FollowingService = function () {
+
+    var createFollowing = function (followeeId, done, fail) {
+        $.post("/api/followings", { followeeId: followeeId })
+            .done(done)
+            .fail(fail);
+    };
+
+    var deleteFollowing = function (followeeId, done, fail) {
+        $.ajax({
+            url: "/api/followings/" + followeeId,
+            method: "DELETE"
+        })
+            .done(done)
+            .fail(fail);
+    };
+
+    return {
+        createFollowing: createFollowing,
+        deleteFollowing: deleteFollowing
+    };
+}();
 var NotificationService = function() {
     var getNew = function (onDone) {
         $.getJSON("/api/notifications/getNewNotifications", onDone);
@@ -65,6 +87,37 @@ var GigsController = function (attendanceService) {
         init: init
     };
 }(AttendanceService);
+var GigDetailsController = function(followingService) {
+    var followButton;
+
+    var done = function () {
+        var text = followButton.text() === "Follow" ? "Following" : "Follow";
+        followButton.toggleClass("btn-info").toggleClass("btn-default").text(text);
+    };
+
+    var fail = function (jqXhr) {
+        alert(jqXhr.responseJSON);
+    };
+
+    var toggleFollowing = function(e) {
+        followButton = $(e.target);
+        var followeeId = followButton.attr("data-user-id");
+
+        if (followButton.hasClass("btn-default"))
+            followingService.createFollowing(followeeId, done, fail);
+        else
+            followingService.deleteFollowing(followeeId, done, fail);
+    };
+
+    var init = function() {
+        $(".js-toggle-follow").click(toggleFollowing);
+    };
+
+    return {
+        init: init
+    };
+
+}(FollowingService);
 var Notifications = function (notificationService) {
 
     var removeCountBadge = function() {
