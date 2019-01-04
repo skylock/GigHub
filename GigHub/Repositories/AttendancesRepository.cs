@@ -1,10 +1,8 @@
-﻿using System;
+﻿using GigHub.Data;
+using GigHub.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GigHub.Data;
-using GigHub.Models;
 
 namespace GigHub.Repositories
 {
@@ -20,6 +18,13 @@ namespace GigHub.Repositories
         {
             return _context.Attendances
                 .Where(a => a.AttendeeId == userId && a.Gig.DateTime > DateTime.Now)
+                .ToList();
+        }
+
+        public IEnumerable<Attendance> GetAttendance(int gigId, string userId)
+        {
+            return _context.Attendances
+                .Where(a => a.GigId == gigId && a.AttendeeId == userId)
                 .ToList();
         }
     }

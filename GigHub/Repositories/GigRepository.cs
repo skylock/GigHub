@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GigHub.Data;
+﻿using GigHub.Data;
 using GigHub.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GigHub.Repositories
 {
@@ -16,6 +14,30 @@ namespace GigHub.Repositories
         public GigRepository(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+
+        public Gig GetGig(int gigId)
+        {
+            return _context.Gigs
+                .Include(g => g.Artist)
+                .Include(g => g.Genre)
+                .SingleOrDefault(g => g.Id == gigId);
+        }
+
+        public void Add(Gig gig)
+        {
+            _context.Gigs.Add(gig);
+        }
+
+        public IEnumerable<Gig> GetUpcomingGigsByArtist(string userId)
+        {
+            return _context.Gigs
+                .Where(g => g.ArtistId == userId &&
+                            g.DateTime > DateTime.Now &&
+                            !g.IsCanceled)
+                .Include(g => g.Genre)
+                .ToList();
         }
 
         public Gig GetGigWithAttendees(int gigId)
@@ -34,6 +56,11 @@ namespace GigHub.Repositories
                 .Include(g => g.Artist)
                 .Include(g => g.Genre)
                 .ToList();
+        }
+
+        public void Commit()
+        {
+            _context.SaveChanges();
         }
     }
 }
