@@ -7,16 +7,19 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
+using GigHub.Repositories;
 
 namespace GigHub.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private AttendancesRepository _attendancesRepository;
 
         public HomeController(ApplicationDbContext context)
         {
             _context = context;
+            _attendancesRepository = new AttendancesRepository(context);
         }
         public IActionResult Index(string query = null)
         {
@@ -35,9 +38,7 @@ namespace GigHub.Controllers
             }
 
             var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var attendances = _context.Attendances
-                .Where(a => a.AttendeeId == userId && a.Gig.DateTime > DateTime.Now)
-                .ToList()
+            var attendances = _attendancesRepository.GetFutureAttendances(userId)
                 .ToLookup(g => g.GigId);
 
             var viewModel = new GigsViewModel

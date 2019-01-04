@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using GigHub.Repositories;
 
 namespace GigHub.Controllers
 {
@@ -15,10 +16,14 @@ namespace GigHub.Controllers
     public class GigsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly AttendancesRepository _attendancesRepository;
+        private readonly GigRepository _gigRepository;
 
         public GigsController(ApplicationDbContext context)
         {
             _context = context;
+            _attendancesRepository = new AttendancesRepository(context);
+            _gigRepository = new GigRepository(context);
         }
 
 
@@ -42,30 +47,13 @@ namespace GigHub.Controllers
         {
             var viewModel = new GigsViewModel
             {
-                UpcomingGigs = GetGigsUserAttending(HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)),
+                UpcomingGigs = _gigRepository.GetGigsUserAttending(HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)),
                 ShowActions = User.Identity.IsAuthenticated,
                 Heading = "Gigs I'm Attending",
-                Attendances = GetFutureAttendances(HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)).ToLookup(g => g.GigId)
+                Attendances = _attendancesRepository.GetFutureAttendances(HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)).ToLookup(g => g.GigId)
             };
 
             return View("Gigs", viewModel);
-        }
-
-        private List<Attendance> GetFutureAttendances(string userId)
-        {
-            return _context.Attendances
-                .Where(a => a.AttendeeId == userId && a.Gig.DateTime > DateTime.Now)
-                .ToList();
-        }
-
-        private List<Gig> GetGigsUserAttending(string userId)
-        {
-            return _context.Attendances
-                .Where(a => a.AttendeeId == userId)
-                .Select(a => a.Gig)
-                .Include(g => g.Artist)
-                .Include(g => g.Genre)
-                .ToList();
         }
 
         // Get: Gigs
