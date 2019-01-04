@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 
@@ -39,28 +40,32 @@ namespace GigHub.Controllers
         [Authorize]
         public IActionResult Attending()
         {
-            var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var gigs = _context.Attendances
+            var viewModel = new GigsViewModel
+            {
+                UpcomingGigs = GetGigsUserAttending(HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)),
+                ShowActions = User.Identity.IsAuthenticated,
+                Heading = "Gigs I'm Attending",
+                Attendances = GetFutureAttendances(HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)).ToLookup(g => g.GigId)
+            };
+
+            return View("Gigs", viewModel);
+        }
+
+        private List<Attendance> GetFutureAttendances(string userId)
+        {
+            return _context.Attendances
+                .Where(a => a.AttendeeId == userId && a.Gig.DateTime > DateTime.Now)
+                .ToList();
+        }
+
+        private List<Gig> GetGigsUserAttending(string userId)
+        {
+            return _context.Attendances
                 .Where(a => a.AttendeeId == userId)
                 .Select(a => a.Gig)
                 .Include(g => g.Artist)
                 .Include(g => g.Genre)
                 .ToList();
-
-            var attendances = _context.Attendances
-                .Where(a => a.AttendeeId == userId && a.Gig.DateTime > DateTime.Now)
-                .ToList()
-                .ToLookup(g => g.GigId);
-
-            var viewModel = new GigsViewModel
-            {
-                UpcomingGigs = gigs,
-                ShowActions = User.Identity.IsAuthenticated,
-                Heading = "Gigs I'm Attending",
-                Attendances = attendances
-            };
-
-            return View("Gigs", viewModel);
         }
 
         // Get: Gigs
