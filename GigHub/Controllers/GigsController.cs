@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Security.Claims;
 using GigHub.Repositories;
 
@@ -134,11 +136,13 @@ namespace GigHub.Controllers
                 return View("GigForm", viewModel);
             }
 
-            var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var gig = _context.Gigs
-                .Include(g => g.Attendances)
-                    .ThenInclude(a => a.Attendee)
-                .Single(g => g.Id == viewModel.Id && g.ArtistId == userId);
+            var gig = _gigRepository.GetGigWithAttendees(viewModel.Id);
+
+            if (gig == null)
+                return NotFound();
+
+            if (gig.ArtistId != HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier))
+                return Unauthorized();
 
             gig.Modify(viewModel.GetDateTime(), viewModel.Venue, viewModel.Genre);
 
