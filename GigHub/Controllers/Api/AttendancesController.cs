@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using GigHub.Core.Dtos;
+﻿using GigHub.Core.Dtos;
 using GigHub.Core.Models;
-using GigHub.Data;
 using GigHub.Persistence;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 
 namespace GigHub.Controllers.Api
 {

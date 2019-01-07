@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
-using GigHub.Data;
+using GigHub.Core.Dtos;
+using GigHub.Persistence;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using GigHub.Core.Dtos;
-using GigHub.Persistence;
 
 namespace GigHub.Controllers.Api
 {
@@ -46,7 +45,7 @@ namespace GigHub.Controllers.Api
                 .Where(un => un.UserId == userId && !un.IsRead)
                 .ToList();
 
-            notifications.ForEach(n => n.Read()); 
+            notifications.ForEach(n => n.Read());
 
             _context.SaveChanges();
 

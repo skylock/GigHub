@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using GigHub.Core;
 using GigHub.Core.Models;
-using GigHub.Data;
 using GigHub.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
