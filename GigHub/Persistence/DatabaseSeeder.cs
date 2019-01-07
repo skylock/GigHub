@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.Internal;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using GigHub.Core.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Internal;
 
-namespace GigHub.Data
+namespace GigHub.Persistence
 {
     public class DatabaseSeeder
     {

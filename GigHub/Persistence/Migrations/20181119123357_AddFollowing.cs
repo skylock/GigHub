@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace GigHub.Data.Migrations
+namespace GigHub.Persistence.Migrations
 {
     public partial class AddFollowing : Migration
     {

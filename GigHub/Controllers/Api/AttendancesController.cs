@@ -4,6 +4,7 @@ using System.Security.Claims;
 using GigHub.Core.Models;
 using GigHub.Data;
 using GigHub.Dtos;
+using GigHub.Persistence;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

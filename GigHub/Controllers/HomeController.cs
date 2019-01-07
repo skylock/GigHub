@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using GigHub.Core.Models;
+using GigHub.Persistence;
 using GigHub.Persistence.Repositories;
 
 namespace GigHub.Controllers
