@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using GigHub.Data;
-using GigHub.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using GigHub.Core.Dtos;
 using GigHub.Persistence;
 
 namespace GigHub.Controllers.Api
