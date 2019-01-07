@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Security.Claims;
+using GigHub.Core.Models;
 using GigHub.Data;
 using GigHub.Dtos;
-using GigHub.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

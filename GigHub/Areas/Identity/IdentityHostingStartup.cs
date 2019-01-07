@@ -1,6 +1,5 @@
 ﻿using System;
 using GigHub.Data;
-using GigHub.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;

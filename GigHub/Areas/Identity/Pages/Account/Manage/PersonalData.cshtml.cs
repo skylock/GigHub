@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using GigHub.Models;
+using GigHub.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
+﻿using System;
+using Microsoft.AspNetCore.Identity;
 
-namespace GigHub.Models
+namespace GigHub.Core.Models
 {
     public class ApplicationRole : IdentityRole
     {

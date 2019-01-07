@@ -1,8 +1,8 @@
-﻿using GigHub.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Threading.Tasks;
+using GigHub.Core.Models;
 
 namespace GigHub.Data
 {

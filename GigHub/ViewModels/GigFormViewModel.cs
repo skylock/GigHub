@@ -1,10 +1,10 @@
 ﻿using GigHub.Controllers;
-using GigHub.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
+using GigHub.Core.Models;
 
 namespace GigHub.ViewModels
 {

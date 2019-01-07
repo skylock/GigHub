@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
-namespace GigHub.Models
+namespace GigHub.Core.Models
 {
     public class ApplicationUser : IdentityUser
     {

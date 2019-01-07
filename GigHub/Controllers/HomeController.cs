@@ -1,5 +1,4 @@
 ﻿using GigHub.Data;
-using GigHub.Models;
 using GigHub.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +6,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
+using GigHub.Core.Models;
 using GigHub.Persistence.Repositories;
 
 namespace GigHub.Controllers
