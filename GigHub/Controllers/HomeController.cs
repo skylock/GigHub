@@ -1,4 +1,5 @@
-﻿using GigHub.Data;
+﻿using GigHub.Core;
+using GigHub.Persistence;
 using GigHub.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -6,21 +7,18 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
-using GigHub.Core.Models;
-using GigHub.Persistence;
-using GigHub.Persistence.Repositories;
 
 namespace GigHub.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private AttendancesRepository _attendancesRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public HomeController(ApplicationDbContext context)
+        public HomeController(ApplicationDbContext context, IUnitOfWork unitOfWork)
         {
             _context = context;
-            _attendancesRepository = new AttendancesRepository(context);
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Index(string query = null)
         {
@@ -39,7 +37,7 @@ namespace GigHub.Controllers
             }
 
             var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var attendances = _attendancesRepository.GetFutureAttendances(userId)
+            var attendances = _unitOfWork.Attendances.GetFutureAttendances(userId)
                 .ToLookup(g => g.GigId);
 
             var viewModel = new GigsViewModel
