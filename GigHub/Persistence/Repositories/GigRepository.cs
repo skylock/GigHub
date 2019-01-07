@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using GigHub.Data;
+﻿using GigHub.Data;
 using GigHub.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GigHub.Persistence.Repositories
 {
-    public class GigRepository
+    public class GigRepository : IGigRepository
     {
         private readonly ApplicationDbContext _context;
 

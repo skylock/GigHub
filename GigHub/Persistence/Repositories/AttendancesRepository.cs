@@ -1,12 +1,12 @@
-﻿using System;
+﻿using GigHub.Data;
+using GigHub.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using GigHub.Data;
-using GigHub.Models;
 
 namespace GigHub.Persistence.Repositories
 {
-    public class AttendancesRepository
+    public class AttendancesRepository : IAttendancesRepository
     {
         private readonly ApplicationDbContext _context;
 
