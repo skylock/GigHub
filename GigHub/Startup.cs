@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GigHub.Core;
 using GigHub.Core.Models;
 using GigHub.Data;
 using GigHub.Persistence;

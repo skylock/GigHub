@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
+using GigHub.Core;
 using GigHub.Core.Models;
 
 namespace GigHub.Controllers

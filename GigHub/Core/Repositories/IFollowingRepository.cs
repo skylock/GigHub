@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using GigHub.Core.Models;
 
-namespace GigHub.Persistence.Repositories
+namespace GigHub.Core.Repositories
 {
     public interface IFollowingRepository
     {
