@@ -1,5 +1,4 @@
-﻿using GigHub.Data;
-using GigHub.Models;
+﻿using GigHub.Models;
 using GigHub.Persistence;
 using GigHub.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -14,9 +13,9 @@ namespace GigHub.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public GigsController(ApplicationDbContext context)
+        public GigsController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork(context);
+            _unitOfWork = unitOfWork;
         }
 
 
