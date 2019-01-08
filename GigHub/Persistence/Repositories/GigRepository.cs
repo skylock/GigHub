@@ -69,9 +69,9 @@ namespace GigHub.Persistence.Repositories
             {
                 upcomingGigs = upcomingGigs
                     .Where(g =>
-                        g.Artist.FullName.Contains(searchTerm) ||
-                        g.Genre.Name.Contains(searchTerm) ||
-                        g.Venue.Contains(searchTerm));
+                        g.Artist.FullName.ToLower().Contains(searchTerm.ToLower()) ||
+                        g.Genre.Name.ToLower().Contains(searchTerm.ToLower()) ||
+                        g.Venue.ToLower().Contains(searchTerm.ToLower()));
             }
 
             return upcomingGigs.ToList();
