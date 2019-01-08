@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using GigHub.Core.Models;
+﻿using GigHub.Core.Models;
 
 namespace GigHub.Core.Repositories
 {
     public interface IFollowingRepository
     {
-        IEnumerable<Following> GetFollowings(string userId, string gigArtistId);
+        Following GetFollowing(string userId, string followeeId);
+        void Add(Following following);
+        void Remove(Following following);
     }
 }

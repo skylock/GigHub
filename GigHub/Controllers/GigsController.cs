@@ -1,11 +1,10 @@
-﻿using GigHub.Persistence;
+﻿using GigHub.Core;
+using GigHub.Core.Models;
 using GigHub.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
-using GigHub.Core;
-using GigHub.Core.Models;
 
 namespace GigHub.Controllers
 {
@@ -158,7 +157,7 @@ namespace GigHub.Controllers
 
                 model.IsAttending = _unitOfWork.Attendances.GetAttendance(gig.Id, userId) != null;
 
-                model.IsFollowing = _unitOfWork.Following.GetFollowings(userId, gig.ArtistId) != null;
+                model.IsFollowing = _unitOfWork.Following.GetFollowing(userId, gig.ArtistId) != null;
             }
 
             return View(model);
