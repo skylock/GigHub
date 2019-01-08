@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using GigHub.Core;
 using GigHub.Core.Dtos;
-using GigHub.Persistence;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -14,10 +14,10 @@ namespace GigHub.Controllers.Api
     [Authorize]
     public class NotificationsController : ControllerBase
     {
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public NotificationsController(UnitOfWork unitOfWork,
+        public NotificationsController(IUnitOfWork unitOfWork,
                                        IMapper mapper)
         {
             _unitOfWork = unitOfWork;

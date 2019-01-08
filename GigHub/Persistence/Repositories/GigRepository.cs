@@ -65,7 +65,7 @@ namespace GigHub.Persistence.Repositories
                 .Include(g => g.Genre)
                 .Where(g => g.DateTime > DateTime.Now && !g.IsCanceled);
 
-            if (!String.IsNullOrWhiteSpace(searchTerm))
+            if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 upcomingGigs = upcomingGigs
                     .Where(g =>

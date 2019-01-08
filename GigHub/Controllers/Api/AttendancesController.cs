@@ -1,6 +1,6 @@
-﻿using GigHub.Core.Dtos;
+﻿using GigHub.Core;
+using GigHub.Core.Dtos;
 using GigHub.Core.Models;
-using GigHub.Persistence;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -13,9 +13,9 @@ namespace GigHub.Controllers.Api
     [Authorize]
     public class AttendancesController : ControllerBase
     {
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AttendancesController(UnitOfWork unitOfWork)
+        public AttendancesController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
