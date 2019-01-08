@@ -21,11 +21,10 @@ namespace GigHub.Persistence.Repositories
                 .ToList();
         }
 
-        public IEnumerable<Attendance> GetAttendance(int gigId, string userId)
+        public Attendance GetAttendance(int gigId, string userId)
         {
             return _context.Attendances
-                .Where(a => a.GigId == gigId && a.AttendeeId == userId)
-                .ToList();
+                .SingleOrDefault(a => a.GigId == gigId && a.AttendeeId == userId);
         }
     }
 }
