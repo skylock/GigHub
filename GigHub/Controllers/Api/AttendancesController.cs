@@ -3,8 +3,6 @@ using GigHub.Core.Models;
 using GigHub.Persistence;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 
 namespace GigHub.Controllers.Api
@@ -15,37 +13,32 @@ namespace GigHub.Controllers.Api
     [Authorize]
     public class AttendancesController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly UnitOfWork _unitOfWork;
 
-        public AttendancesController(ApplicationDbContext context)
+        public AttendancesController(UnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost]
         public IActionResult Attend(AttendanceDto dto)
         {
-            var currentUserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (_context.Attendances.Any(a => a.AttendeeId == currentUserId && a.GigId == dto.GigId))
+            var attendance = _unitOfWork.Attendances.GetAttendance(dto.GigId, userId);
+
+            if (attendance != null)
                 return BadRequest("The attendance exists.");
 
-            var attendance = new Attendance
+            attendance = new Attendance
             {
                 GigId = dto.GigId,
-                AttendeeId = currentUserId
+                AttendeeId = userId
             };
+            _unitOfWork.Attendances.Add(attendance);
+            _unitOfWork.Complete();
 
-            _context.Attendances.Add(attendance);
-            _context.SaveChanges();
             return Ok();
-        }
-
-        // GET: api/Gigs
-        [HttpGet]
-        public IEnumerable<Gig> GetGigs()
-        {
-            return _context.Gigs;
         }
 
         [Authorize]
@@ -54,15 +47,14 @@ namespace GigHub.Controllers.Api
         {
             var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var attendance = _context.Attendances
-                .SingleOrDefault(a => a.GigId == id && a.AttendeeId == userId);
+            var attendance = _unitOfWork.Attendances.GetAttendance(id, userId);
 
             if (attendance == null)
                 return NotFound();
 
-            _context.Attendances.Remove(attendance);
+            _unitOfWork.Attendances.Remove(attendance);
 
-            _context.SaveChanges();
+            _unitOfWork.Complete();
 
             return Ok(id);
         }
