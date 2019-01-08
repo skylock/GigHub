@@ -3,7 +3,6 @@ using GigHub.Core.Dtos;
 using GigHub.Persistence;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -15,39 +14,40 @@ namespace GigHub.Controllers.Api
     [Authorize]
     public class NotificationsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly UnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public NotificationsController(ApplicationDbContext context,
+        public NotificationsController(UnitOfWork unitOfWork,
                                        IMapper mapper)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
         [HttpGet]
         public IEnumerable<NotificationDto> GetNewNotifications()
         {
             var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var notifications = _context.UserNotifications
-                .Where(un => un.UserId == userId && un.IsRead == false)
-                .Select(un => un.Notification)
-                .Include(n => n.Gig.Artist)
-                .ToList();
+
+            var notifications = _unitOfWork.Notifications.GetNewNotificationsFor(userId);
 
             return notifications.Select(n => _mapper.Map<NotificationDto>(n));
         }
+
+
 
         [HttpPost]
         public IActionResult MarkAsRead()
         {
             var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var notifications = _context.UserNotifications
-                .Where(un => un.UserId == userId && !un.IsRead)
-                .ToList();
 
-            notifications.ForEach(n => n.Read());
+            var notifications = _unitOfWork.UserNotifications.GetUserNotificationsFor(userId);
 
-            _context.SaveChanges();
+            foreach (var notification in notifications)
+            {
+                notification.Read();
+            }
+
+            _unitOfWork.Complete();
 
             return Ok();
         }
