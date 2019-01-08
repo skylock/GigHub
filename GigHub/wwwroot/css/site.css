@@ -170,6 +170,7 @@ body {
 
     .gigs > li .details .genre {
         font-size: 15px;
+        padding-right: 12px;
     }
 
     .gigs > li .actions {
