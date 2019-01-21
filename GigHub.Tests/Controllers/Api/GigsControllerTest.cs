@@ -1,6 +1,7 @@
 using FluentAssertions;
 using GigHub.Controllers.Api;
 using GigHub.Core;
+using GigHub.Core.Models;
 using GigHub.Core.Repositories;
 using GigHub.Tests.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ namespace GigHub.Tests.Controllers.Api
     [TestClass]
     public class GigsControllerTest
     {
-        private Mock<IUnitOfWork> _mockUnitOfWork;
+        private readonly Mock<IUnitOfWork> _mockUnitOfWork;
         private readonly GigsController _sut;
 
         public GigsControllerTest()
@@ -27,6 +28,19 @@ namespace GigHub.Tests.Controllers.Api
         [TestMethod]
         public void Cancel_NoGigWithGivenIdExists_ShouldReturnNotFound()
         {
+            var result = _sut.Cancel(1);
+
+            result.Should().BeOfType<NotFoundResult>();
+        }
+
+        [TestMethod]
+        public void Cancel_GigIsCanceled_ShouldReturnNotFound()
+        {
+            var gig = new Gig();
+            gig.Cancel();
+
+            _mockUnitOfWork.Setup(r => r.Gigs.GetGigWithAttendees(1)).Returns(gig);
+
             var result = _sut.Cancel(1);
 
             result.Should().BeOfType<NotFoundResult>();
