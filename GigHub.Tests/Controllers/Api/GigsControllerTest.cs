@@ -13,11 +13,12 @@ namespace GigHub.Tests.Controllers.Api
     [TestClass]
     public class GigsControllerTest
     {
-        private readonly Mock<IUnitOfWork> _mockUnitOfWork;
-        private readonly GigsController _sut;
+        private Mock<IUnitOfWork> _mockUnitOfWork;
+        private GigsController _sut;
         protected internal string _userId;
 
-        public GigsControllerTest()
+        [TestInitialize]
+        public void TestInitialize()
         {
             _mockUnitOfWork = new Mock<IUnitOfWork>();
             _mockUnitOfWork.SetupGet(u => u.Gigs).Returns(new Mock<IGigRepository>().Object);
