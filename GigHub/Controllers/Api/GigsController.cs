@@ -22,16 +22,13 @@ namespace GigHub.Controllers.Api
         {
             var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var gig = _unitOfWork.Gigs.GetGig(id);
+            var gig = _unitOfWork.Gigs.GetGigWithAttendees(id);
 
-            //TODO: Bug - if gig == null
-            if (gig == null)
-            {
+            if (gig == null || gig.IsCanceled)
                 return NotFound();
-            }
 
-            if (gig.IsCanceled)
-                return NotFound();
+            if (gig.ArtistId != userId)
+                return Unauthorized();
 
             gig.Cancel();
 
