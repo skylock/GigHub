@@ -2,6 +2,7 @@
 using GigHub.Controllers.Api;
 using GigHub.Core;
 using GigHub.Core.Dtos;
+using GigHub.Core.Models;
 using GigHub.Core.Repositories;
 using GigHub.Tests.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +35,21 @@ namespace GigHub.Tests.Controllers.Api
             var result = _sut.Attend(new AttendanceDto { GigId = 1 });
 
             result.Should().BeOfType<OkResult>();
+        }
+
+        [TestMethod]
+        public void Attend_GigIsAttended_ShouldReturnBadRequest()
+        {
+            var attendance = _mockUnitOfWork.Setup(u => u.Attendances.GetAttendance(1, _userId))
+                .Returns(new Attendance
+                {
+                    GigId = 1,
+                    AttendeeId = _userId
+                });
+
+            var result = _sut.Attend(new AttendanceDto { GigId = 1 });
+
+            result.Should().BeOfType<BadRequestObjectResult>();
         }
     }
 }
