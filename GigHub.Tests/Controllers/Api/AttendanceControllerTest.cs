@@ -66,5 +66,15 @@ namespace GigHub.Tests.Controllers.Api
 
             result.Should().BeOfType<OkObjectResult>();
         }
+
+        [TestMethod]
+        public void Cancel_NotAttendedGig_ShouldReturnNotFound()
+        {
+
+            var result = _sut.Cancel(1);
+
+            result.Should().BeOfType<NotFoundResult>();
+
+        }
     }
 }
